@@ -1,0 +1,29 @@
+{
+  "name": "board",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "aws-sdk": "2.804.0",
+    "cookie-parser": "~1.4.4",
+    "crypto-promise": "^2.1.0",
+    "debug": "~2.6.9",
+    "express": "^4.17.1",
+    "http-errors": "~1.6.3",
+    "install": "^0.13.0",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "momnet": "2.28.0",
+    "morgan": "~1.9.1",
+    "multer": "1.4.2",
+    "multer-s3": "2.9.0",
+    "nodemailer": "^6.6.0",
+    "npm": "^7.13.0",
+    "promise-mysql": "^3.3.2",
+    "promise-mysql-native": "^3.3.2",
+    "rand-token": "^1.0.1"
+  }
+}
