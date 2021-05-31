@@ -52,8 +52,8 @@ router.post('/delete', authUtil.isLoggedin, async(req, res) => {
     }
 })
 router.post('/update', authUtil.isLoggedin, async(req, res) => {
-    const listUpdateQuery = "UPDATE user_health SET RegiDate, relationNm, gender, age, height, weight, cancerNm, stageNm, progressNm, disease, disable_food, memo WHERE health_id = ? AND user_id = ?";
-    const listUpdateResult = await db.queryParam_Parse(listUpdateQuery, [now(), req.body.relationNm, req.body.gender, req.body.age, req.body.height, req.body.weight, req.body.cancerNm, req.body.stageNm, req.body.progressNm, req.body.disease, req.body.disable_food, req.body.memo, req.decoded.id, req.body.user_id]);
+    const listUpdateQuery = "UPDATE user_health SET RegiDate = ? , relationNm = ?, gender = ?, age = ?, height = ?, weight = ?, cancerNm = ?, stageNm = ?, progressNm = ?, disease = ?, disable_food = ?, memo = ? WHERE health_id = ? AND user_id = ?";
+    const listUpdateResult = await db.queryParam_Parse(listUpdateQuery, [req.body.RegiDate,req.body.relationNm, req.body.gender, req.body.age, req.body.height, req.body.weight, req.body.cancerNm, req.body.stageNm, req.body.progressNm, req.body.disease, req.body.disable_food, req.body.memo, req.body.health_id, req.decoded.id]);
     if (!listUpdateResult) { //DB에러
         res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.DB_ERROR));        
     }
@@ -64,7 +64,7 @@ router.post('/update', authUtil.isLoggedin, async(req, res) => {
 })
 //
 router.get('/:RegiDate', authUtil.isLoggedin, async(req, res) => {
-    const checkuserQurey = "SELECT health_id, cancerNm, stageNm, progressNm, disease, weight, height, memo, DATE_FORMAT(RegiDate, '%Y-%m-%d') from user_health WHERE user_id = ? AND RegiDate LIKE '%"+ req.params.RegiDate +"%'";
+    const checkuserQurey = "SELECT health_id, cancerNm, stageNm, progressNm, disease, weight, height, memo, DATE_FORMAT(RegiDate, '%y-%m-%d') from user_health WHERE user_id = ? AND RegiDate LIKE '%"+ req.params.RegiDate +"%'";
     const checkuserResult = await db.queryParam_Parse(checkuserQurey, [req.decoded.id])
     console.log(checkuserResult)
     if (!checkuserResult) { //DB에러
