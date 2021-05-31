@@ -38,7 +38,7 @@ router.post('/', async(req, res) => {
         }
         else{
             let emailParam = {
-                toEmail: 'dev.jun125@gmail.com',     // 수신할 이메일
+                toEmail: 'dev.jun125@gmail.com',     // 수신할 이메일 //현재는 실제 운영이 아니니 메일 잘 오는지 확인위해 고정 값 => 실제 배포 시 req.body.email로 변경
             
                 subject: '이웃집 닥터 변경된 비밀번호 입니다.',   // 메일 제목
             
