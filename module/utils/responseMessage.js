@@ -107,4 +107,7 @@ module.exports = {
   PATIENT_INFO_DELETE : "환자 건강 정보 삭제 성공",
   PATIENT_INFO_UPDATE : "환자 건강 정보 수정 성공",
   PW_CHECK_SUCCESS : "비밀번호 확인 성공",
+
+  CANCER_FOOD_SELECT : "암에 좋은 랭킹별 음식 조회 성공",
+  CATEGORY_FOOD_SELECT : "음식 카테고리 별 조회 성공",
 };
