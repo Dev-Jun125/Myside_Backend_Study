@@ -22,11 +22,11 @@ method : get
 */
 
 router.get('/recent/:category', async(req, res) => {
-    const Qurey = "SELECT food_id, name, img, category, background_color, nutrition1, wishes, likes, views, regiDate "
+    const Query = "SELECT food_id, name, img, category, background_color, nutrition1, wishes, likes, views, regiDate "
     + 'FROM food_thumbnail '
     + 'WHERE category = ? '
     + 'ORDER BY regiDate DESC';
-    const Result = await db.queryParam_Parse(Qurey, req.params.category)
+    const Result = await db.queryParam_Parse(Query, req.params.category)
     if (Result[0]==null) { //셀렉트 결과 값이 없음
         res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.NULL_VALUE));
     }
@@ -37,11 +37,11 @@ router.get('/recent/:category', async(req, res) => {
    
 })
 router.get('/likes/:category', async(req, res) => {
-    const Qurey = "SELECT food_id, name, img, category, background_color, nutrition1, wishes, likes, views, regiDate "
+    const Query = "SELECT food_id, name, img, category, background_color, nutrition1, wishes, likes, views, regiDate "
     + 'FROM food_thumbnail '
     + 'WHERE category = ? '
     + 'ORDER BY likes DESC';
-    const Result = await db.queryParam_Parse(Qurey, req.params.category)
+    const Result = await db.queryParam_Parse(Query, req.params.category)
     if (Result[0]==null) { //셀렉트 결과 값이 없음
         res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.NULL_VALUE));
     }

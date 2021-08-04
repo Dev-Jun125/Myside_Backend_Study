@@ -24,11 +24,11 @@ const crypto = require('crypto-promise');
 */
 
 router.get('/:cancerNm', async(req, res) => {
-    const Qurey = "SELECT A.cancerNm, A.food, B.img, B.background_color, B.nutrition1, B.views"
+    const Query = "SELECT A.cancerNm, A.food, B.img, B.background_color, B.nutrition1, B.views"
     +' FROM cancer_food A, food_thumbnail B'
     + ' WHERE A.food = B.name AND A.cancerNm = ? '
     + 'ORDER BY views DESC LIMIT 4 ';
-    const Result = await db.queryParam_Parse(Qurey, req.params.cancerNm)
+    const Result = await db.queryParam_Parse(Query, req.params.cancerNm)
     if (Result[0]==null) { //셀렉트 결과 값이 없음
         res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.NULL_VALUE));
     }
@@ -40,11 +40,11 @@ router.get('/:cancerNm', async(req, res) => {
 })
 
 router.get('/:cancerNm/plus', async(req, res) => {
-    const Qurey = "SELECT A.cancerNm, A.food, B.img, B.background_color, B.nutrition1, B.views"
+    const Query = "SELECT A.cancerNm, A.food, B.img, B.background_color, B.nutrition1, B.views"
     +' FROM cancer_food A, food_thumbnail B'
     + ' WHERE A.food = B.name AND A.cancerNm = ? '
     + 'ORDER BY views DESC';
-    const Result = await db.queryParam_Parse(Qurey, req.params.cancerNm)
+    const Result = await db.queryParam_Parse(Query, req.params.cancerNm)
     if (Result[0]==null) { //셀렉트 결과 값이 없음
         res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.NULL_VALUE));
     }
