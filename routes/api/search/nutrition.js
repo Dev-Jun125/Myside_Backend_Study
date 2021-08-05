@@ -27,9 +27,7 @@ method = get
 router.get('/:nutritionName', async(req, res) => {
     const Qurey = "SELECT name FROM nutrition WHERE name_kr = ?";
     const Result = await db.queryParam_Parse(Qurey, req.params.nutritionName);
-    console.log(Result);
     const nutritionName = Result[0].name;
-    console.log(nutritionName);
     if (!Result) { //디비에러
         res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.NULL_VALUE));
     }
@@ -38,10 +36,19 @@ router.get('/:nutritionName', async(req, res) => {
             res.status(200).send(defaultRes.successFalse(statuscode.NO_CONTENT, resMessage.NULL_VALUE));
         }
         else{
-            const Query = "SELECT A.name, A.img, A.background_color, A.nutrition1, A.likes, A.wishes, cancerNm = (SELECT cancerNM FROM cancer_food A, food_thumbnail B WHERE A.food = B.name) " 
-            const Query = "SELECT  A.cancerNm, status, Vitamin_C AS nutrition, B.name, img, background_color FROM (SELECT * FROM cancer_food A, food_detail B WHERE A.food = B.name)A, food_thumbnail B WHERE A.name = B.name AND Vitamin_C>0 ORDER BY Vitamin_C DESC";
-            
-            res.status(200).send(defaultRes.successTrue(statuscode.OK, resMessage.CANCER_FOOD_SELECT,{Result}));
+            const Query = "SELECT  A.cancerNm, status, "+nutritionName+" AS nutrition, B.name, img, background_color FROM (SELECT * FROM cancer_food A, food_detail B WHERE A.food = B.name)A, food_thumbnail B WHERE A.name = B.name AND "+nutritionName+">0 ORDER BY "+nutritionName+" DESC";
+            const Result = await db.queryParam_None(Query)
+            if(!Result){//디비에러
+                res.status(200).send(defaultRes.successFalse(statuscode.DB_ERROR, resMessage.NULL_VALUE));
+            }
+            else{
+                if(Result[0]=null){//찾는 영양소를 포함한 음식 X
+                    res.status(200).send(defaultRes.successFalse(statuscode.NO_CONTENT, resMessage.NULL_VALUE));
+                }
+                else{
+                    res.status(200).send(defaultRes.successTrue(statuscode.OK, resMessage.CANCER_FOOD_SELECT,{Result}));
+                }
+            }
         }
     }
 })
