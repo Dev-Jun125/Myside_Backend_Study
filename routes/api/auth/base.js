@@ -13,7 +13,7 @@ const crypto = require('crypto-promise');
 
 
 router.post('/', async(req, res) => {
-    const Qurey = "SELECT * from user WHERE email = ?";
+    const Query = "SELECT * from user WHERE email = ?";
     const Result = await db.queryParam_Parse(checkuserQurey, [req.body.email])
 
     if (checkuserResult[0]==null) { //이메일로 셀렉트 결과 값이 없음
